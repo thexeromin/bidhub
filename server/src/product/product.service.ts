@@ -149,6 +149,19 @@ export class ProductService {
         return true
     }
 
+    async getRecentBids(userId: string) {
+        return await this.prismaService.bid
+            .findMany({
+                where: {
+                    userId
+                },
+                orderBy: {
+                    createdAt: 'desc'
+                },
+                take: 3,
+            })
+    }
+
     async getWinner(productId: string): Promise<TopBidder> {
         const topBid = await this.prismaService.bid
             .findFirstOrThrow({

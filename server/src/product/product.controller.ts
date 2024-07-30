@@ -61,6 +61,14 @@ export class ProductController {
         return this.productService.bid(userId, productId)
     }
 
+    @Post('recent_bids')
+    @HttpCode(HttpStatus.OK)
+    getRecentBids(
+        @GetCurrentUserId() userId: string
+    ) {
+        return this.productService.getRecentBids(userId)
+    }
+
     @Get('winner/:id')
     @HttpCode(HttpStatus.OK)
     getWinner(@Param('id') productId: string): Promise<TopBidder> {
