@@ -52,6 +52,14 @@ export class ProductController {
         return this.productService.findOne(id)
     }
 
+    @Get('bid/recent_bids')
+    @HttpCode(HttpStatus.OK)
+    getRecentBids(
+        @GetCurrentUserId() userId: string
+    ) {
+        return this.productService.getRecentBids(userId)
+    }
+
     @Post('bid/:id')
     @HttpCode(HttpStatus.OK)
     bid(
@@ -61,13 +69,6 @@ export class ProductController {
         return this.productService.bid(userId, productId)
     }
 
-    @Post('recent_bids')
-    @HttpCode(HttpStatus.OK)
-    getRecentBids(
-        @GetCurrentUserId() userId: string
-    ) {
-        return this.productService.getRecentBids(userId)
-    }
 
     @Get('winner/:id')
     @HttpCode(HttpStatus.OK)

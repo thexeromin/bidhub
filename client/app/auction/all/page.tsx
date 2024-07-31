@@ -5,8 +5,6 @@ import { useSession } from 'next-auth/react'
 import {
     Alert,
     AlertIcon,
-    AlertTitle,
-    AlertDescription,
     SimpleGrid,
     useToast,
 } from '@chakra-ui/react'

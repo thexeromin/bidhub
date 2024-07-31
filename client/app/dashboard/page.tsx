@@ -1,7 +1,11 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
+import useSWR from 'swr'
+import moment from 'moment'
 import {
+    Alert,
+    AlertIcon,
     Box,
     Flex,
     Avatar,
@@ -14,13 +18,35 @@ import {
     Tr,
     Th,
     Td,
+    useToast
 } from '@chakra-ui/react'
 import { isAuth } from '@/components/Auth'
+import LoadingSpinner from '@/components/LoadingSpinner'
 import Base from '@/components/Base'
-import moment from 'moment'
+import { Bid } from '@/api/types'
+import { handleGetReqWithToken } from '@/api'
 
 function Dashboard() {
     const session = useSession()
+    const toast = useToast()
+    const { data, isLoading } = useSWR(
+        session.data?.accessToken
+            ? ['product/bid/recent_bids', session.data.accessToken]
+            : null,
+        ([url, token]) => handleGetReqWithToken<Array<Bid>>(url, token),
+        {
+            onError: (error) => {
+                toast({
+                    title: 'An error occurred.',
+                    description: error.message,
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top-right',
+                })
+            },
+        },
+    )
     const user = {
         name: session.data?.user?.name || '',
         email: session.data?.user?.email || '',
@@ -29,12 +55,6 @@ function Dashboard() {
         totalAuctions: 15,
         reputation: 4.8,
     }
-
-    const recentBids = [
-        { id: 1, item: 'Vintage Watch', amount: '$120', date: '2024-07-25' },
-        { id: 2, item: 'Antique Vase', amount: '$350', date: '2024-07-22' },
-        { id: 3, item: 'Art Piece', amount: '$220', date: '2024-07-20' },
-    ]
 
     return (
         <Base>
@@ -63,24 +83,33 @@ function Dashboard() {
                     <Text fontWeight="bold" fontSize="lg" mb={3}>
                         Recent Bids
                     </Text>
-                    <Table variant="simple">
-                        <Thead>
-                            <Tr>
-                                <Th>Item</Th>
-                                <Th>Amount</Th>
-                                <Th>Date</Th>
-                            </Tr>
-                        </Thead>
-                        <Tbody>
-                            {recentBids.map((bid) => (
-                                <Tr key={bid.id}>
-                                    <Td>{bid.item}</Td>
-                                    <Td>{bid.amount}</Td>
-                                    <Td>{bid.date}</Td>
+                    {isLoading && <LoadingSpinner minH={'300px'} />}
+                    {!data?.length ? (
+                        <Alert status="info" mt={5}>
+                            <AlertIcon />
+                            No auction found.
+                        </Alert>
+                    ) : (
+
+                        <Table variant="simple">
+                            <Thead>
+                                <Tr>
+                                    <Th>Product Id</Th>
+                                    <Th>Amount</Th>
+                                    <Th>Date</Th>
                                 </Tr>
-                            ))}
-                        </Tbody>
-                    </Table>
+                            </Thead>
+                            <Tbody>
+                                {data.map((bid) => (
+                                    <Tr key={bid.id}>
+                                        <Td>{bid.productId}</Td>
+                                        <Td>{bid.amount}</Td>
+                                        <Td>{moment(bid.createdAt).fromNow()}</Td>
+                                    </Tr>
+                                ))}
+                            </Tbody>
+                        </Table>
+                    )}
                 </Box>
             </Box>
         </Base>
