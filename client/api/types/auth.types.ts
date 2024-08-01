@@ -33,6 +33,7 @@ export interface SigninSuccess {
     id: string
     name: string
     email: string
+    createdAt: string
     token: {
         accessToken: string
         refreshToken: string

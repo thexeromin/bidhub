@@ -34,11 +34,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                     name: `${user.profile.firstName} ${user.profile.lastName}`,
                     email: user.email,
                     image: user.profile.avatarUrl,
+                    createdAt: user.createdAt
                 }
-
+                console.log({token})
                 return {
                     accessToken: user.token?.accessToken,
-                    expires_at: token.exp || Math.floor(Date.now() / 1000) + 30,
+                    expires_at: Math.floor(Date.now() / 1000) + 600, // 10 minutes exp time
                     refreshToken: user.token?.refreshToken,
                     user: userProfile,
                 }
@@ -70,7 +71,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                         // Keep the previous token properties
                         ...token,
                         access_token: data.accessToken,
-                        expires_at: Math.floor(Date.now() / 1000) + 30,
+                        expires_at: Math.floor(Date.now() / 1000) + 600, // 10 minutes exp time
                         // Fall back to old refresh token, but note that
                         // many providers may only allow using a refresh token once.
                         refresh_token: data.refreshToken ?? token.refreshToken,
@@ -102,6 +103,7 @@ declare module 'next-auth' {
             lastName: string
             avatarUrl: string
         }
+        createdAt: string
         token?: {
             accessToken: string
             refreshToken: string

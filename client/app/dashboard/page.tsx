@@ -51,7 +51,7 @@ function Dashboard() {
         name: session.data?.user?.name || '',
         email: session.data?.user?.email || '',
         avatarUrl: session.data?.user?.image || 'https://bit.ly/broken-link',
-        memberSince: moment().format('MMMM YYYY'),
+        memberSince: moment(session.data?.user?.createdAt).format('MMMM YYYY'),
         totalAuctions: 15,
         reputation: 4.8,
     }
@@ -69,14 +69,14 @@ function Dashboard() {
                         <Text color="gray.500">
                             Member since {user.memberSince}
                         </Text>
-                        <Flex alignItems="center">
+                        {/* <Flex alignItems="center">
                             <Badge colorScheme="green" mr={2}>
                                 {user.totalAuctions} Auctions
                             </Badge>
                             <Badge colorScheme="yellow">
                                 {user.reputation} Stars
                             </Badge>
-                        </Flex>
+                        </Flex> */}
                     </Stack>
                 </Flex>
                 <Box mt={5}>

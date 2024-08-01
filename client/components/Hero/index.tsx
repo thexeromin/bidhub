@@ -51,7 +51,7 @@ export default function Hero() {
                             <br />
 
                             <Text as={'span'} color={'blue.400'}>
-                                win Tomorrow!
+                                win tomorrow!
                             </Text>
                         </Heading>
 

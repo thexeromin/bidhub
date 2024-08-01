@@ -67,6 +67,7 @@ export class AuthService {
             profile: user.profile,
             email: user.email,
             token: tokens,
+            createdAt: user.createdAt
         }
     }
 

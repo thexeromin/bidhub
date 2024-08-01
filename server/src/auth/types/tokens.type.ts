@@ -13,4 +13,5 @@ export type User = {
     }
     email: string
     token: Tokens
+    createdAt: Date
 }
