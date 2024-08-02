@@ -1,12 +1,3 @@
-export interface CreateAuctionArg {
-    arg: {
-        token: string
-        body: {
-            title: string
-            description: string
-        }
-    }
-}
 
 export interface ErrorRes {
     message: string
@@ -18,6 +9,7 @@ export interface Auction {
     id: string
     title: string
     status: string
+    photo: string
     description: string
     startDate: string
     endDate: string
@@ -47,12 +39,4 @@ export interface Product {
     auctionId: string
     createdAt: string
     updatedAt: string
-}
-
-export interface AddProductBody {
-    name: string
-    description: string
-    location: string
-    photo: string
-    auctionId: string
 }

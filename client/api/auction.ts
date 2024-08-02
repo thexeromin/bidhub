@@ -4,17 +4,15 @@ import { API } from '../utils/'
 import {
     Product,
     Auction,
-    CreateAuctionArg,
     ErrorRes,
-    AddProductBody,
     WinnerType,
 } from './types'
 
-export async function createAuctionAPI(url: string, { arg }: CreateAuctionArg) {
+export async function createAuctionAPI(url: string, token: string, body: FormData) {
     try {
-        const res = await axios.post(`${API}/${url}`, arg.body, {
+        const res = await axios.post(`${API}/${url}`, body, {
             headers: {
-                Authorization: `Bearer ${arg.token}`,
+                Authorization: `Bearer ${token}`,
             },
         })
         return res.data

@@ -48,6 +48,7 @@ function AddProduct({ params }: { params: { id: string } }) {
             auctionId: params.id,
         },
     })
+
     const { trigger, isMutating } = useSWRMutation<
         any,
         any,
@@ -83,6 +84,7 @@ function AddProduct({ params }: { params: { id: string } }) {
             },
         },
     )
+
     const onDrop = useCallback<NonNullable<DropzoneOptions['onDrop']>>(
         (acceptedFiles: File[]) => {
             // Do something with the files

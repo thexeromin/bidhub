@@ -87,7 +87,7 @@ function Dashboard() {
                     {!data?.length ? (
                         <Alert status="info" mt={5}>
                             <AlertIcon />
-                            No auction found.
+                            No bids found.
                         </Alert>
                     ) : (
 

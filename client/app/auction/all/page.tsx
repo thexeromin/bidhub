@@ -53,7 +53,6 @@ function ViewAuctions() {
                 {data?.map((auction) => (
                     <AuctionCard
                         key={auction.id}
-                        photo={'https://placehold.co/600x400'}
                         {...auction}
                     />
                 ))}
