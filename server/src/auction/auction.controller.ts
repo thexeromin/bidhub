@@ -6,7 +6,13 @@ import {
     Patch,
     Param,
     Delete,
+    FileTypeValidator,
+    MaxFileSizeValidator,
+    ParseFilePipe,
+    UploadedFile,
+    UseInterceptors,
 } from '@nestjs/common'
+import { FileInterceptor } from '@nestjs/platform-express'
 import { AuctionService } from './auction.service'
 import { CreateAuctionDto } from './dto/create-auction.dto'
 import { UpdateAuctionDto } from './dto/update-auction.dto'
@@ -16,8 +22,20 @@ export class AuctionController {
     constructor(private readonly auctionService: AuctionService) {}
 
     @Post()
-    create(@Body() createAuctionDto: CreateAuctionDto) {
-        return this.auctionService.create(createAuctionDto)
+    @UseInterceptors(FileInterceptor('photo'))
+    create(
+        @UploadedFile(
+            new ParseFilePipe({
+                validators: [
+                    new MaxFileSizeValidator({ maxSize: 7000 }),
+                    new FileTypeValidator({ fileType: 'image/jpeg' }),
+                ],
+            }),
+        )
+        photo: Express.Multer.File,
+        @Body() createAuctionDto: CreateAuctionDto
+    ) {
+        return this.auctionService.create(photo, createAuctionDto)
     }
 
     @Get()

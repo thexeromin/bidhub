@@ -1,17 +1,15 @@
 import { ForbiddenException, Injectable } from '@nestjs/common'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
-import { UploadApiResponse, v2 as cloudinary } from 'cloudinary'
-import { v4 as uuidv4 } from 'uuid'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { ProductDto, SpeedUpBidDto } from './dto'
 import { Product, TopBidder } from './types/'
-import { ConfigService } from '@nestjs/config'
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service'
 
 @Injectable()
 export class ProductService {
     constructor(
         private prismaService: PrismaService,
-        private configService: ConfigService,
+        private cloudinaryService: CloudinaryService,
     ) {}
 
     async createProduct(
@@ -19,7 +17,7 @@ export class ProductService {
         file: Express.Multer.File,
         dto: ProductDto,
     ): Promise<Product> {
-        const uploadRes = await this.uploadFile(file)
+        const uploadRes = await this.cloudinaryService.uploadFile('products', file)
         if (!uploadRes) throw new ForbiddenException('Not able to upload file')
 
         const product = await this.prismaService.product
@@ -236,30 +234,5 @@ export class ProductService {
             })
 
         if (product) return product.currentBid
-    }
-
-    // file upload
-    async uploadFile(
-        file: Express.Multer.File,
-    ): Promise<UploadApiResponse | void> {
-        //  Configuration
-        cloudinary.config({
-            cloud_name: this.configService.get<string>('CLOUDINARY_CLOUD_NAME'),
-            api_key: this.configService.get<string>('CLOUDINARY_API_KEY'),
-            api_secret: this.configService.get<string>('CLOUDINARY_API_SECRET'),
-        })
-
-        const base64String = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`
-        const uploadResult = await cloudinary.uploader
-            .upload(base64String, {
-                folder: 'products',
-                public_id: uuidv4(),
-                resource_type: 'auto',
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-
-        return uploadResult
     }
 }

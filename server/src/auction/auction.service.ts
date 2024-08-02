@@ -2,15 +2,22 @@ import * as moment from 'moment-timezone'
 import { ForbiddenException, Injectable } from '@nestjs/common'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 import { PrismaService } from 'src/prisma/prisma.service'
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service'
 import { CreateAuctionDto } from './dto/create-auction.dto'
 import { UpdateAuctionDto } from './dto/update-auction.dto'
 import { AuctionTimes } from './types'
 
 @Injectable()
 export class AuctionService {
-    constructor(private prismaService: PrismaService) {}
+    constructor(
+        private prismaService: PrismaService,
+        private cloudinaryService: CloudinaryService,
+    ) {}
 
-    async create(createAuctionDto: CreateAuctionDto) {
+    async create(file: Express.Multer.File, createAuctionDto: CreateAuctionDto) {
+        const uploadRes = await this.cloudinaryService.uploadFile('auctions', file)
+        if (!uploadRes) throw new ForbiddenException('Not able to upload file')
+
         const nextAuctionDate = this.getAuctionTimes()
 
         const auction = await this.prismaService.auction
@@ -18,6 +25,7 @@ export class AuctionService {
                 data: {
                     title: createAuctionDto.title,
                     description: createAuctionDto.description,
+                    photo: uploadRes.secure_url,
                     startDate: nextAuctionDate.nextMondayNoon,
                     endDate: nextAuctionDate.nextWednesdayNoon,
                 },

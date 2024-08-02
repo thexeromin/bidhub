@@ -32,6 +32,7 @@ model Auction {
   title       String
   status      AuctionStatus @default(Ongoing)
   description String?
+  photo       String?
   startDate   DateTime      @default(now())
   endDate     DateTime
   products    Product[]

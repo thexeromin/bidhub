@@ -8,6 +8,7 @@ import { ProductModule } from './product/product.module'
 import { UserModule } from './user/user.module'
 import { AuctionModule } from './auction/auction.module'
 import { TasksModule } from './tasks/tasks.module'
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
     imports: [
@@ -18,6 +19,7 @@ import { TasksModule } from './tasks/tasks.module'
         UserModule,
         AuctionModule,
         TasksModule,
+        CloudinaryModule,
     ],
     providers: [
         {
