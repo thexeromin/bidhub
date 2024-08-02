@@ -36,7 +36,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                     image: user.profile.avatarUrl,
                     createdAt: user.createdAt
                 }
-                console.log({token})
                 return {
                     accessToken: user.token?.accessToken,
                     expires_at: Math.floor(Date.now() / 1000) + 600, // 10 minutes exp time
