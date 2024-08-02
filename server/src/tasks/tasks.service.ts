@@ -62,6 +62,16 @@ export class TasksService {
                             isWinner: true,
                         },
                     })
+
+                    // Mart product status as sold
+                    await this.prismaService.product.update({
+                        where: {
+                            id: product.id
+                        },
+                        data: {
+                            status: "Sold"
+                        },
+                    })
                 }
             }
         }
