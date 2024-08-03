@@ -24,7 +24,7 @@ import { isAuth } from '@/components/Auth'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import Base from '@/components/Base'
 import { Bid } from '@/api/types'
-import { handleGetReqWithToken } from '@/api'
+import { handleGetReq } from '@/api'
 
 function Dashboard() {
     const session = useSession()
@@ -33,7 +33,7 @@ function Dashboard() {
         session.data?.accessToken
             ? ['product/bid/recent_bids', session.data.accessToken]
             : null,
-        ([url, token]) => handleGetReqWithToken<Array<Bid>>(url, token),
+        ([url, token]) => handleGetReq<Array<Bid>>(url, token),
         {
             onError: (error) => {
                 toast({

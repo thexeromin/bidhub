@@ -13,7 +13,8 @@ import {
 } from '@chakra-ui/react'
 import Base from '@/components/Base'
 import { isAuth } from '@/components/Auth'
-import { viewProductAPI, viewWinnerAPI } from '@/api/auction'
+import { handleGetReq } from '@/api'
+import { Product, WinnerType } from '@/api/types'
 import LoadingSpinner from '@/components/LoadingSpinner'
 
 function ViewProduct({ params }: { params: { productId: string } }) {
@@ -23,7 +24,7 @@ function ViewProduct({ params }: { params: { productId: string } }) {
         session.data?.accessToken && params.productId
             ? [`product/${params.productId}`, session.data.accessToken]
             : null,
-        ([url, token]) => viewProductAPI(url, token),
+        ([url, token]) => handleGetReq<Product>(url, token),
         {
             onError: (error) => {
                 toast({
@@ -42,7 +43,7 @@ function ViewProduct({ params }: { params: { productId: string } }) {
         session.data?.accessToken && params.productId
             ? [`product/winner/${params.productId}`, session.data.accessToken]
             : null,
-        ([url, token]) => viewWinnerAPI(url, token),
+        ([url, token]) => handleGetReq<WinnerType>(url, token),
         {
             onError: (error) => {
                 toast({

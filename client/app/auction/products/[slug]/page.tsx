@@ -5,7 +5,8 @@ import { useSession } from 'next-auth/react'
 import { SimpleGrid, useToast } from '@chakra-ui/react'
 import Base from '@/components/Base'
 import { isAuth } from '@/components/Auth'
-import { viewAuctionProductsAPI } from '@/api/auction'
+import { handleGetReq } from '@/api'
+import { Product } from '@/api/types'
 import { ProductCard } from '@/components/Product'
 import LoadingSpinner from '@/components/LoadingSpinner'
 
@@ -16,7 +17,7 @@ function ViewProducts({ params }: { params: { slug: string } }) {
         session.data?.accessToken
             ? [`auction/products/${params.slug}`, session.data.accessToken]
             : null,
-        ([url, token]) => viewAuctionProductsAPI(url, token),
+        ([url, token]) => handleGetReq<Array<Product>>(url, token),
         {
             onError: (error) => {
                 toast({

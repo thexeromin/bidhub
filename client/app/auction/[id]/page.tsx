@@ -15,7 +15,8 @@ import {
 } from '@chakra-ui/react'
 import Base from '@/components/Base'
 import { isAuth } from '@/components/Auth'
-import { viewAuctionAPI } from '@/api/auction'
+import { handleGetReq } from '@/api/'
+import { Auction } from '@/api/types'
 import LoadingSpinner from '@/components/LoadingSpinner'
 
 function ViewAuction({ params }: { params: { id: string } }) {
@@ -25,7 +26,7 @@ function ViewAuction({ params }: { params: { id: string } }) {
         session.data?.accessToken && params.id
             ? [`auction/${params.id}`, session.data.accessToken]
             : null,
-        ([url, token]) => viewAuctionAPI(url, token),
+        ([url, token]) => handleGetReq<Auction>(url, token),
         {
             onError: (error) => {
                 toast({
@@ -54,7 +55,7 @@ function ViewAuction({ params }: { params: { id: string } }) {
                 >
                     <Box position="relative">
                         <Image
-                            src={'https://placehold.co/300x200'}
+                            src={auctionData?.photo}
                             alt={auctionData?.title}
                             borderRadius="lg"
                             objectFit="cover"

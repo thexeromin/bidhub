@@ -13,7 +13,7 @@ import {
     Stack,
     useToast,
 } from '@chakra-ui/react'
-import { bidOnProductAPI } from '@/api/auction'
+import { handlePostReq } from '@/api'
 
 interface Props {
     id: string
@@ -35,7 +35,7 @@ export default function ProductCard(props: Props) {
     const toast = useToast()
     const { trigger, isMutating } = useSWRMutation(
         props.token ? [`product/bid/${props.id}`, props.token] : null,
-        ([url, token]) => bidOnProductAPI(url, token),
+        ([url, token]) => handlePostReq<any, any>(url, token),
         {
             onSuccess: () => {
                 toast({

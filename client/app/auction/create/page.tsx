@@ -23,7 +23,7 @@ import {
 } from '@chakra-ui/react'
 import Base from '@/components/Base'
 import { isAuth } from '@/components/Auth'
-import { createAuctionAPI } from '@/api/auction'
+import { handlePostReq } from '@/api'
 
 interface Inputs {
     title: string
@@ -52,7 +52,7 @@ function CreateAuction() {
         session.data?.accessToken
             ? [`auction`, session.data.accessToken]
             : null,
-        ([url, token], body) => createAuctionAPI(url, token, body.arg),
+        ([url, token], body) => handlePostReq<FormData, any>(url, token, body.arg),
         {
             onSuccess: () => {
                 toast({

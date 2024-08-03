@@ -10,7 +10,8 @@ import {
 } from '@chakra-ui/react'
 import Base from '@/components/Base'
 import { isAuth } from '@/components/Auth'
-import { viewAllAuctionAPI } from '@/api/auction'
+import { handleGetReq } from '@/api'
+import { Auction } from '@/api/types'
 import { AuctionCard } from '@/components/Auction'
 import LoadingSpinner from '@/components/LoadingSpinner'
 
@@ -21,7 +22,7 @@ function ViewAuctions() {
         session.data?.accessToken
             ? ['auction', session.data.accessToken]
             : null,
-        ([url, token]) => viewAllAuctionAPI(url, token),
+        ([url, token]) => handleGetReq<Array<Auction>>(url, token),
         {
             onError: (error) => {
                 toast({
