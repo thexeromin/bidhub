@@ -1,5 +1,6 @@
 import { ForbiddenException, Injectable } from '@nestjs/common'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
+import * as moment from 'moment-timezone'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { ProductDto, SpeedUpBidDto } from './dto'
 import { Product, TopBidder } from './types/'
@@ -10,7 +11,7 @@ export class ProductService {
     constructor(
         private prismaService: PrismaService,
         private cloudinaryService: CloudinaryService,
-    ) {}
+    ) { }
 
     async createProduct(
         userId: string,
@@ -85,6 +86,8 @@ export class ProductService {
     async bid(userId: string, productId: string): Promise<Boolean> {
         const current_bid = await this.getCurrentBidOfProduct(productId)
         const bid_amount = current_bid + 250
+        const timeZone = 'America/Denver' // MST timezone
+        const currentDate = moment.tz(timeZone).toDate()
 
         // check if auction closed or not
         const product = await this.prismaService.product.findFirst({
@@ -92,12 +95,18 @@ export class ProductService {
                 id: productId,
                 auction: {
                     status: 'Ongoing',
+                    startDate: {
+                        lte: currentDate,
+                    },
+                    endDate: {
+                        gte: currentDate,
+                    },
                 },
             },
         })
 
         if (!product) {
-            throw new ForbiddenException('Auction ended')
+            throw new ForbiddenException(`Auction ended or it's not yet started`)
         }
 
         const bid = await this.prismaService.bid
