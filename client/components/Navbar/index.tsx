@@ -55,9 +55,9 @@ export default function Navbar() {
                     <Box>
                         <Heading size="sm" as="h4">
                             {status == 'authenticated' ? (
-                                <Link href={'/dashboard'}>Marketplace</Link>
+                                <Link href={'/dashboard'}>BidHub</Link>
                             ) : (
-                                <Link href={'/'}>Marketplace</Link>
+                                <Link href={'/'}>BidHub</Link>
                             )}
                         </Heading>
                     </Box>

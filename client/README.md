@@ -1,6 +1,6 @@
-# Marketplace
+# BidHub client
 
-Marketplace client
+Bidhub marketplace client
 
 ## Installation
 
