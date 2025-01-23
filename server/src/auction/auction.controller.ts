@@ -27,7 +27,7 @@ export class AuctionController {
         @UploadedFile(
             new ParseFilePipe({
                 validators: [
-                    new MaxFileSizeValidator({ maxSize: 7000 }),
+                    new MaxFileSizeValidator({ maxSize: 20000 }),
                     new FileTypeValidator({ fileType: 'image/jpeg' }),
                 ],
             }),

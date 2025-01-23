@@ -19,10 +19,12 @@ import {
     Heading,
     useToast,
     useColorModeValue,
+    useDisclosure,
 } from '@chakra-ui/react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import Base from '@/components/Base'
 import { signInAction } from '@/auth.action'
+import { TestCredentailModal } from '@/components/Modal'
 
 interface Inputs {
     email: string
@@ -35,10 +37,11 @@ export default function Signin() {
     const router = useRouter()
     const { status } = useSession()
     const toast = useToast()
+    const { isOpen, onOpen, onClose } = useDisclosure()
     const {
         register,
         handleSubmit,
-        formState: { errors, isLoading },
+        formState: { errors, isLoading, isSubmitting },
     } = useForm<Inputs>()
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
@@ -148,15 +151,20 @@ export default function Signin() {
                                 <Button
                                     type="submit"
                                     colorScheme="blue"
-                                    isLoading={isLoading}
+                                    isLoading={isLoading || isSubmitting}
                                 >
                                     Sign in
+                                </Button>
+
+                                <Button onClick={onOpen}>
+                                    Get Test Credentails
                                 </Button>
                             </Stack>
                         </Stack>
                     </Box>
                 </Stack>
             </Flex>
+            <TestCredentailModal isOpen={isOpen} onClose={onClose} />
         </Base>
     )
 }
