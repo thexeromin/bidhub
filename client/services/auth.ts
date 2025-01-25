@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { API } from '../utils/'
+import { API } from '../utils'
 import {
     SignupPayload,
     SignupSuccess,

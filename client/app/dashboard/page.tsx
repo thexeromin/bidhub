@@ -23,8 +23,8 @@ import {
 import { isAuth } from '@/components/Auth'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import Base from '@/components/Base'
-import { Bid } from '@/api/types'
-import { handleGetReq } from '@/api'
+import { Bid } from '@/services/types'
+import { handleGetReq } from '@/services'
 
 function Dashboard() {
     const session = useSession()

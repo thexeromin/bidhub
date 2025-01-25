@@ -1,7 +1,7 @@
 'use server'
 
 import { signIn as authSignIn, signOut as authSignOut } from './auth'
-import { SigninPayload } from './api/types'
+import { SigninPayload } from './services/types'
 
 export const signInAction = async (data: SigninPayload) => {
     return authSignIn('credentials', {

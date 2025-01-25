@@ -13,7 +13,7 @@ import {
     Stack,
     useToast,
 } from '@chakra-ui/react'
-import { handlePostReq } from '@/api'
+import { handlePostReq } from '@/services'
 
 interface Props {
     id: string

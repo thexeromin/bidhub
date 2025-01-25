@@ -26,7 +26,7 @@ import {
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import Base from '@/components/Base'
 import ChakraNextLink from '@/components/ChakraNextLink'
-import { signupAPI } from '@/api'
+import { signupAPI } from '@/services'
 
 interface Inputs {
     firstName: string

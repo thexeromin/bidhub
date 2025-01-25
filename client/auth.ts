@@ -1,6 +1,6 @@
 import NextAuth, { type User } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
-import { signinAPI } from './api'
+import { signinAPI } from './services'
 import { AdapterUser } from 'next-auth/adapters'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({

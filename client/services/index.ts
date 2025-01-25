@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 
-import { API } from '../utils/'
+import { API } from '../utils'
 import {
     ErrorRes
 } from './types'

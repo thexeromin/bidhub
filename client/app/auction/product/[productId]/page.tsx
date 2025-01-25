@@ -13,8 +13,8 @@ import {
 } from '@chakra-ui/react'
 import Base from '@/components/Base'
 import { isAuth } from '@/components/Auth'
-import { handleGetReq } from '@/api'
-import { Product, WinnerType } from '@/api/types'
+import { handleGetReq } from '@/services'
+import { Product, WinnerType } from '@/services/types'
 import LoadingSpinner from '@/components/LoadingSpinner'
 
 function ViewProduct({ params }: { params: { productId: string } }) {

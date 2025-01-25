@@ -23,7 +23,7 @@ import {
 } from '@chakra-ui/react'
 import Base from '@/components/Base'
 import { isAuth } from '@/components/Auth'
-import { handlePostReq } from '@/api'
+import { handlePostReq } from '@/services'
 
 interface Inputs {
     title: string

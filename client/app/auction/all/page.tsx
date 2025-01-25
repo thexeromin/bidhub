@@ -10,8 +10,8 @@ import {
 } from '@chakra-ui/react'
 import Base from '@/components/Base'
 import { isAuth } from '@/components/Auth'
-import { handleGetReq } from '@/api'
-import { Auction } from '@/api/types'
+import { handleGetReq } from '@/services'
+import { Auction } from '@/services/types'
 import { AuctionCard } from '@/components/Auction'
 import LoadingSpinner from '@/components/LoadingSpinner'
 
