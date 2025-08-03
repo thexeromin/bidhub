@@ -18,7 +18,7 @@ export default function Header() {
                     <a href="#" className="hover:text-indigo-600">
                         Categories
                     </a>
-                    <a href="#" className="hover:text-indigo-600">
+                    <a href="/login" className="hover:text-indigo-600">
                         Login
                     </a>
                 </nav>
@@ -52,7 +52,7 @@ export default function Header() {
                         Categories
                     </a>
                     <a
-                        href="#"
+                        href="/login"
                         className="block text-gray-700 hover:text-indigo-600"
                     >
                         Login
