@@ -5,11 +5,11 @@ import { Api } from '../network'
 
 import { IRegisterPayload, IRegisterResponse, IError } from './types'
 
-export const createUser = async (
+export const signup = async (
     payload: IRegisterPayload,
 ): Promise<IRegisterResponse> => {
     try {
-        const response = await Api().post(apiEndPoint.CREATE_USER, payload)
+        const response = await Api().post(apiEndPoint.REGISTER, payload)
         return response.data
     } catch (error: any) {
         if (error.response) throw error.response.data as IError

@@ -2,12 +2,12 @@
 'use client'
 
 import { useMutation } from '@tanstack/react-query'
-import { createUser } from '@/api/user'
+import { signup } from '@/api/user'
 import { toast } from 'sonner'
 
-export const useCreateUser = (onSuccessAction: () => void) => {
+export const signupUser = (onSuccessAction: () => void) => {
     return useMutation({
-        mutationFn: createUser,
+        mutationFn: signup,
         onError: (error: any) => {
             toast(`Oops ${error?.statusCode || ''}!`, {
                 description: error?.message || 'Something went wrong.',

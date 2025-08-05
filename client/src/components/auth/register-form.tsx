@@ -18,10 +18,10 @@ import {
     FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useCreateUser } from '@/app/hooks/mutations'
+import { signupUser } from '@/app/hooks/mutations'
 
 const FormSchema = z.object({
-    email: z.string().email({ message: 'Invalid email address' }),
+    email: z.email({ message: 'Invalid email address' }),
     phone: z.string().regex(/^\+91\d{10}$/, {
         message: 'Invalid Indian phone number',
     }),
@@ -35,7 +35,7 @@ const RegisterForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
     ...props
 }) => {
     const router = useRouter()
-    const createUserMutation = useCreateUser(() =>
+    const signupMutation = signupUser(() =>
         setTimeout(() => {
             router.push('/login')
         }, 2000),
@@ -52,7 +52,8 @@ const RegisterForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
     const onSubmit: SubmitHandler<z.infer<typeof FormSchema>> = async (
         data,
     ) => {
-        createUserMutation.mutate(data)
+        signupMutation.mutate(data)
+        form.reset()
     }
 
     return (
@@ -111,9 +112,9 @@ const RegisterForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
                             type="submit"
                             className="w-full"
                             variant="brand"
-                            disabled={createUserMutation.isPending}
+                            disabled={signupMutation.isPending}
                         >
-                            {createUserMutation.isPending ? (
+                            {signupMutation.isPending ? (
                                 <>
                                     <Loader2 className="animate-spin" />
                                     Please wait
