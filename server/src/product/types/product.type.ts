@@ -15,11 +15,5 @@ export type Product = {
 
 export type TopBidder = {
     id: string
-    profile: {
-        firstName: string
-        lastName: string
-        address: string
-        avatarUrl: string
-    }
     email: string
 }

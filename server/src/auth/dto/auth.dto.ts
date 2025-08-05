@@ -13,17 +13,5 @@ export class AuthDto {
 export class SignupAuthDto extends AuthDto {
     @IsNotEmpty()
     @IsString()
-    firstName: string
-
-    @IsNotEmpty()
-    @IsString()
-    lastName: string
-
-    @IsNotEmpty()
-    @IsString()
     phone: string
-
-    @IsNotEmpty()
-    @IsString()
-    address: string
 }

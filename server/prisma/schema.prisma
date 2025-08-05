@@ -17,7 +17,6 @@ model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   email     String   @unique
   phone     String   @unique
-  profile   Profile?
   hash      String
   hashedRt  String?
   bids      Bid[]
@@ -70,14 +69,6 @@ model Bid {
   updatedAt        DateTime @updatedAt
 
   @@map("bids")
-}
-
-type Profile {
-  firstName String
-  lastName  String
-  avatarUrl String?
-  bio       String?
-  address   String
 }
 
 enum AuctionStatus {

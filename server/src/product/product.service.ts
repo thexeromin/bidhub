@@ -11,14 +11,17 @@ export class ProductService {
     constructor(
         private prismaService: PrismaService,
         private cloudinaryService: CloudinaryService,
-    ) { }
+    ) {}
 
     async createProduct(
         userId: string,
         file: Express.Multer.File,
         dto: ProductDto,
     ): Promise<Product> {
-        const uploadRes = await this.cloudinaryService.uploadFile('products', file)
+        const uploadRes = await this.cloudinaryService.uploadFile(
+            'products',
+            file,
+        )
         if (!uploadRes) throw new ForbiddenException('Not able to upload file')
 
         const product = await this.prismaService.product
@@ -106,7 +109,9 @@ export class ProductService {
         })
 
         if (!product) {
-            throw new ForbiddenException(`Auction ended or it's not yet started`)
+            throw new ForbiddenException(
+                `Auction ended or it's not yet started`,
+            )
         }
 
         const bid = await this.prismaService.bid
@@ -157,16 +162,15 @@ export class ProductService {
     }
 
     async getRecentBids(userId: string) {
-        return await this.prismaService.bid
-            .findMany({
-                where: {
-                    userId
-                },
-                orderBy: {
-                    createdAt: 'desc'
-                },
-                take: 3,
-            })
+        return await this.prismaService.bid.findMany({
+            where: {
+                userId,
+            },
+            orderBy: {
+                createdAt: 'desc',
+            },
+            take: 3,
+        })
     }
 
     async getWinner(productId: string): Promise<TopBidder> {
@@ -189,12 +193,6 @@ export class ProductService {
             return {
                 id: '',
                 email: '',
-                profile: {
-                    firstName: '',
-                    lastName: '',
-                    address: '',
-                    avatarUrl: '',
-                },
             }
 
         const winner = await this.prismaService.user.findFirst({
@@ -205,7 +203,6 @@ export class ProductService {
 
         return {
             id: winner.id,
-            profile: winner.profile,
             email: winner.email,
         }
     }

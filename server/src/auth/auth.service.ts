@@ -22,13 +22,6 @@ export class AuthService {
                 data: {
                     email: dto.email,
                     phone: dto.phone,
-                    profile: {
-                        firstName: dto.firstName,
-                        lastName: dto.lastName,
-                        address: dto.address,
-                        bio: '',
-                        avatarUrl: '',
-                    },
                     hash,
                 },
             })
@@ -64,10 +57,10 @@ export class AuthService {
 
         return {
             id: user.id,
-            profile: user.profile,
             email: user.email,
+            phone: user.phone,
             token: tokens,
-            createdAt: user.createdAt
+            createdAt: user.createdAt,
         }
     }
 

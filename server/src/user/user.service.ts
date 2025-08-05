@@ -11,11 +11,7 @@ export class UserService {
             where: {
                 id: userId,
             },
-            data: {
-                profile: {
-                    ...dto,
-                },
-            },
+            data: {},
         })
 
         return true

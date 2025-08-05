@@ -5,13 +5,8 @@ export type Tokens = {
 
 export type User = {
     id: string
-    profile: {
-        firstName: string
-        lastName: string
-        address: string
-        avatarUrl: string
-    }
     email: string
+    phone: string
     token: Tokens
     createdAt: Date
 }
