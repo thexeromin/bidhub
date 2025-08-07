@@ -10,7 +10,6 @@ import Header from '@/components/layout/header'
 export default function Home() {
     return (
         <div className="min-h-screen bg-gray-50 text-gray-900">
-            <Header />
             <Hero />
             <Categories />
             <FeaturedListings />
