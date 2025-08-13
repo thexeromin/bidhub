@@ -24,7 +24,7 @@ export interface IRegisterSuccess {
 export type IRegisterResponse = IRegisterSuccess | IError
 
 // Auction Create
-export interface IAuctionCreateSuccess {
+export interface IAuction {
     id: string
     title: string
     status: 'Ongoing' | 'Ended'
@@ -33,4 +33,6 @@ export interface IAuctionCreateSuccess {
     startDate: Date
     endDate: Date
 }
-export type IAuctionCreateResponse = IAuctionCreateSuccess | IError
+
+export type IAuctionCreateResponse = IAuction | IError
+export type IAuctionsResponse = Array<IAuction> | IError
