@@ -1,9 +1,6 @@
 'use client'
 
-import React, { useState, useCallback } from 'react'
-import { useDropzone, FileRejection } from 'react-dropzone'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useSession } from 'next-auth/react'
 import { Loader2 } from 'lucide-react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { z } from 'zod'
@@ -33,12 +30,10 @@ const FormSchema = z.object({
     description: z.string(),
 })
 
-const CreateAuctionForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
+const AddProductForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
     className,
     ...props
 }) => {
-    const { data: sessionData } = useSession()
-    const [file, setFile] = useState<File | null>(null)
     const mutation = createAuctionCallBack('Auction created')
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
@@ -48,51 +43,21 @@ const CreateAuctionForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
         },
     })
 
-    const onDrop = useCallback(
-        (acceptedFiles: File[], fileRejections: FileRejection[]) => {
-            const file = acceptedFiles[0]
-            if (file) {
-                setFile(acceptedFiles[0] || null)
-            }
-            if (fileRejections.length > 0) {
-                console.warn('Rejected file(s):', fileRejections)
-            }
-        },
-        [],
-    )
-
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({
-        onDrop,
-        multiple: false,
-    })
-
     const onSubmit: SubmitHandler<z.infer<typeof FormSchema>> = async (
         data,
     ) => {
-        if (!file || !sessionData?.user.accessToken) return
-        const formData = new FormData()
-        formData.append('photo', file)
-        formData.append('title', data.title)
-        formData.append('description', data.description)
-
-        mutation.mutate({
-            payload: formData,
-            token: sessionData.user.accessToken,
-        })
+        // mutation.mutate(data)
         form.reset()
-        setFile(null)
     }
 
     return (
-        <React.Fragment {...props}>
+        <>
             <div className="flex flex-col gap-6">
                 <Card>
                     <CardHeader>
-                        <CardTitle className="text-2xl">
-                            Create Auction
-                        </CardTitle>
+                        <CardTitle className="text-2xl">List Product</CardTitle>
                         <CardDescription>
-                            Enter your details below to create a new auction
+                            Enter your details below to list product
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -128,29 +93,6 @@ const CreateAuctionForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
                                             </FormItem>
                                         )}
                                     />
-                                    <div
-                                        {...getRootProps()}
-                                        className="border-2 border-dashed border-gray-300 p-5 rounded-lg cursor-pointer flex flex-col items-center justify-center text-center"
-                                    >
-                                        <input {...getInputProps()} />
-                                        {isDragActive ? (
-                                            <p>Drop the file here ...</p>
-                                        ) : file ? (
-                                            <>
-                                                <p className="font-medium">
-                                                    {file.name}
-                                                </p>
-                                                <p className="text-gray-500 text-sm">
-                                                    Drag & drop to replace
-                                                </p>
-                                            </>
-                                        ) : (
-                                            <p>
-                                                Drag & drop a file here, or
-                                                click to select
-                                            </p>
-                                        )}
-                                    </div>
 
                                     <Button
                                         type="submit"
@@ -164,7 +106,7 @@ const CreateAuctionForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
                                                 Please wait
                                             </>
                                         ) : (
-                                            'Create Auction'
+                                            'Submit'
                                         )}
                                     </Button>
                                 </div>
@@ -173,8 +115,8 @@ const CreateAuctionForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
                     </CardContent>
                 </Card>
             </div>
-        </React.Fragment>
+        </>
     )
 }
 
-export default CreateAuctionForm
+export default AddProductForm

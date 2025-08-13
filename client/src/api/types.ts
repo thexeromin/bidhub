@@ -23,9 +23,14 @@ export interface IRegisterSuccess {
 // Union type for the response
 export type IRegisterResponse = IRegisterSuccess | IError
 
-// Create auction
-export interface IAuctionPayload {
+// Auction Create
+export interface IAuctionCreateSuccess {
+    id: string
     title: string
-    description: string
-    photo: FormData
+    status: 'Ongoing' | 'Ended'
+    description: string | null
+    photo: string | null
+    startDate: Date
+    endDate: Date
 }
+export type IAuctionCreateResponse = IAuctionCreateSuccess | IError

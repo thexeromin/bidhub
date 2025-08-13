@@ -14,6 +14,7 @@ export const createAuctionCallBack = (successMsg: string) => {
             })
         },
         onSuccess: () => {
+            console.log('hora')
             toast('Hurray!', {
                 description: successMsg,
             })
