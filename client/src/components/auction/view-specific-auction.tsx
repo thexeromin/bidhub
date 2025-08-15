@@ -8,6 +8,7 @@ import { useSession } from 'next-auth/react'
 import { getSpecificAuction } from '@/api'
 import { IAuction, IError } from '@/api/types'
 import { Button } from '@/components/ui/button'
+import ViewAllProducts from './view-all-products'
 
 interface Props {
     id: string
@@ -74,29 +75,8 @@ export default function ViewSpecificAuction({ id }: Props) {
                             </Link>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                            {products.map((product) => (
-                                <div
-                                    key={product.id}
-                                    className="bg-white rounded-lg shadow overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
-                                >
-                                    <img
-                                        src={product.image}
-                                        alt={product.name}
-                                        className="w-full h-48 object-cover"
-                                    />
-                                    <div className="p-4">
-                                        <h3 className="text-lg font-semibold">
-                                            {product.name}
-                                        </h3>
-                                        <p className="mt-1 text-gray-600">
-                                            Current Bid: $
-                                            {product.currentBid.toLocaleString()}
-                                        </p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                        {/* Products */}
+                        <ViewAllProducts id={id} />
                     </div>
                 </div>
             ) : (
