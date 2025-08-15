@@ -89,3 +89,26 @@ export const getProductsForAuction = async (
         throw new Error('Unexpected error occurred')
     }
 }
+
+export const addProduct = async (data: {
+    token: string
+    payload: FormData
+}): Promise<IAuctionResponse> => {
+    try {
+        const response = await Api().post(
+            apiEndPoint.PRODUCT_COMMON,
+            data.payload,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${data.token}`,
+                },
+            },
+        )
+        return response.data
+    } catch (error: any) {
+        if (error.response) throw error.response.data as IError
+        console.log(error)
+        throw new Error('Unexpected error occurred')
+    }
+}

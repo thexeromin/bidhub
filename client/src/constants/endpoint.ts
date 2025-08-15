@@ -10,5 +10,6 @@ export const apiEndPoint = {
     LOGIN: `${controllerEndPoint.AUTH}/login`,
     REGISTER: `${controllerEndPoint.AUTH}/signup`,
     AUCTION_COMMON: `${controllerEndPoint.COMMON}/auction`,
+    PRODUCT_COMMON: `${controllerEndPoint.COMMON}/product`,
     VERIFY_OTP: `${controllerEndPoint.COMMON}/verify-otp`,
 }

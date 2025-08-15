@@ -26,27 +26,6 @@ export default function ViewSpecificAuction({ id }: Props) {
         return !!data && 'id' in data // or any property unique to IAuction
     }
 
-    const products = [
-        {
-            id: 1,
-            name: '1957 Chevrolet Bel Air',
-            currentBid: 55000,
-            image: 'https://images.unsplash.com/photo-1511391931914-690e1a8e10e3?auto=format&fit=crop&w=400&q=80',
-        },
-        {
-            id: 2,
-            name: '1965 Ford Mustang',
-            currentBid: 42000,
-            image: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=400&q=80',
-        },
-        {
-            id: 3,
-            name: '1969 Dodge Charger',
-            currentBid: 61000,
-            image: 'https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=400&q=80',
-        },
-    ]
-
     return (
         <>
             {isAuction(data) ? (

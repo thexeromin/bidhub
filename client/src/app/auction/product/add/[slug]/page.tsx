@@ -6,11 +6,12 @@ export default async function Page({
 }: {
     params: Promise<{ slug: string }>
 }) {
+    const auctionId = (await params).slug
     return (
         <Main title="List Product">
             <div className="flex min-h-[70svh] w-full items-center justify-center p-6 md:p-10">
                 <div className="w-full max-w-sm">
-                    <AddProductForm />
+                    <AddProductForm id={auctionId} />
                 </div>
             </div>
         </Main>

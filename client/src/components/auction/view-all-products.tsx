@@ -2,7 +2,6 @@
 
 'use client'
 
-import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { getProductsForAuction } from '@/api'

@@ -2,7 +2,7 @@
 'use client'
 
 import { useMutation } from '@tanstack/react-query'
-import { createAuction } from '@/api'
+import { addProduct, createAuction } from '@/api'
 import { toast } from 'sonner'
 
 export const createAuctionCallBack = (successMsg: string) => {
@@ -14,7 +14,22 @@ export const createAuctionCallBack = (successMsg: string) => {
             })
         },
         onSuccess: () => {
-            console.log('hora')
+            toast('Hurray!', {
+                description: successMsg,
+            })
+        },
+    })
+}
+
+export const addProductCallBack = (successMsg: string) => {
+    return useMutation({
+        mutationFn: addProduct,
+        onError: (error: any) => {
+            toast(`Oops ${error?.statusCode || ''}!`, {
+                description: error?.message || 'Something went wrong.',
+            })
+        },
+        onSuccess: () => {
             toast('Hurray!', {
                 description: successMsg,
             })
