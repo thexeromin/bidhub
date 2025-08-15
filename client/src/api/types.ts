@@ -34,5 +34,5 @@ export interface IAuction {
     endDate: Date
 }
 
-export type IAuctionCreateResponse = IAuction | IError
+export type IAuctionResponse = IAuction | IError
 export type IAuctionsResponse = Array<IAuction> | IError
