@@ -27,12 +27,32 @@ export default function ViewAllAuction() {
                         {auction.photo ? (
                             <img
                                 src={auction.photo}
-                                className="w-full h-40 bg-gray-200"
+                                className="w-full h-40 bg-gray-200 object-cover"
                             />
                         ) : (
                             <div className="h-40 bg-gray-200" />
                         )}
                         <div className="p-4">
+                            {/* Status Badge */}
+                            {(() => {
+                                const now = new Date()
+                                const start = new Date(auction.startDate)
+                                const end = new Date(auction.endDate)
+                                const isLive = now >= start && now <= end
+
+                                return (
+                                    <span
+                                        className={`inline-block px-2 py-1 text-xs font-semibold rounded-full mb-2 ${
+                                            isLive
+                                                ? 'bg-green-100 text-green-700'
+                                                : 'bg-red-100 text-red-700'
+                                        }`}
+                                    >
+                                        {isLive ? 'Ongoing' : 'Ended'}
+                                    </span>
+                                )
+                            })()}
+
                             <h4 className="text-xl font-semibold mb-2">
                                 {auction.title}
                             </h4>

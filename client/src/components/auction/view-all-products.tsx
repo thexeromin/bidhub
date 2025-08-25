@@ -7,6 +7,8 @@ import { useSession } from 'next-auth/react'
 import { getProductsForAuction } from '@/api'
 import { AlertCircleIcon } from 'lucide-react'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { Button } from '../ui/button'
+import { bidCallBack } from '@/app/hooks/mutations'
 
 interface Props {
     id: string
@@ -19,6 +21,7 @@ export default function ViewAllProducts({ id }: Props) {
         queryFn: () => getProductsForAuction(id, sessionData!.user.accessToken),
         enabled: !!sessionData?.user.accessToken,
     })
+    const mutation = bidCallBack('Bidded')
 
     return (
         <>
@@ -53,6 +56,23 @@ export default function ViewAllProducts({ id }: Props) {
                                 <p className="mt-1 text-gray-600">
                                     Current Bid: ${product.currentBid}
                                 </p>
+
+                                {/* Bid Button */}
+                                <Button
+                                    onClick={() =>
+                                        mutation.mutate({
+                                            id: product.id,
+                                            token: sessionData!.user
+                                                .accessToken,
+                                        })
+                                    }
+                                    className="mt-3 w-full bg-indigo-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-indigo-700 transition"
+                                    disabled={mutation.isPending}
+                                >
+                                    {mutation.isPending
+                                        ? 'Please wait...'
+                                        : 'Place Bid'}
+                                </Button>
                             </div>
                         </div>
                     ))}

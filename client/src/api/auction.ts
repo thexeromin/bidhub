@@ -112,3 +112,25 @@ export const addProduct = async (data: {
         throw new Error('Unexpected error occurred')
     }
 }
+
+export const bidProduct = async (data: {
+    id: string
+    token: string
+}): Promise<IAuctionResponse> => {
+    try {
+        const response = await Api().post(
+            apiEndPoint.PRODUCT_COMMON + `/bid/${data.id}`,
+            {},
+            {
+                headers: {
+                    Authorization: `Bearer ${data.token}`,
+                },
+            },
+        )
+        return response.data
+    } catch (error: any) {
+        if (error.response) throw error.response.data as IError
+        console.log(error)
+        throw new Error('Unexpected error occurred')
+    }
+}
