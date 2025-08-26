@@ -11,8 +11,8 @@ export default function Sidebar({ isOpen, handleSidebarOpen }: Props) {
         { name: 'Create Auction', href: '/auction/create' },
         { name: 'Live Auctions', href: '/auction' },
         { name: 'My Bids', href: '/bids' },
-        { name: 'Won Items', href: '#' },
-        { name: 'Settings', href: '#' },
+        // { name: 'Won Items', href: '#' },
+        // { name: 'Settings', href: '#' },
     ]
 
     return (
