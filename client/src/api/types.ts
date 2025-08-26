@@ -33,6 +33,17 @@ export interface IAuction {
     endDate: Date
 }
 
+export interface IBid {
+    id: string
+    amount: number
+    increment_amount: number
+    productId: string
+    userId: string
+    isWinner: boolean
+    createdAt: Date
+    updatedAt: Date
+}
+
 export interface IProduct {
     id: string
     name: string
@@ -50,4 +61,5 @@ export interface IProduct {
 
 export type IAuctionResponse = IAuction | IError
 export type IAuctionsResponse = Array<IAuction> | IError
+export type IBidsResponse = Array<IBid> | IError
 export type IProductsResponse = Array<IProduct> | IError
