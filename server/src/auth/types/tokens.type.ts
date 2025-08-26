@@ -1,12 +1,12 @@
 export type Tokens = {
-    accessToken: string
-    refreshToken: string
+  accessToken: string
+  refreshToken: string
 }
 
 export type User = {
-    id: string
-    email: string
-    phone: string
-    token: Tokens
-    createdAt: Date
+  id: string
+  email: string
+  phone: string
+  token: Tokens
+  createdAt: Date
 }

@@ -5,18 +5,18 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { useState } from 'react'
 
 interface ReactQueryProviderProps {
-    children: React.ReactNode
+  children: React.ReactNode
 }
 
 const QueryProvider: React.FC<ReactQueryProviderProps> = ({ children }) => {
-    const [queryClient] = useState(() => new QueryClient())
+  const [queryClient] = useState(() => new QueryClient())
 
-    return (
-        <QueryClientProvider client={queryClient}>
-            {children}
-            <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-    )
+  return (
+    <QueryClientProvider client={queryClient}>
+      {children}
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  )
 }
 
 export default QueryProvider

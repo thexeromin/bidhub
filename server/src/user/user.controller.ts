@@ -5,14 +5,14 @@ import { UserUpdateDto } from './dto'
 
 @Controller('user')
 export class UserController {
-    constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) {}
 
-    @Patch('update')
-    @HttpCode(HttpStatus.OK)
-    updateUser(
-        @GetCurrentUserId() userId: string,
-        @Body() dto: UserUpdateDto,
-    ): Promise<boolean> {
-        return this.userService.updateUser(userId, dto)
-    }
+  @Patch('update')
+  @HttpCode(HttpStatus.OK)
+  updateUser(
+    @GetCurrentUserId() userId: string,
+    @Body() dto: UserUpdateDto,
+  ): Promise<boolean> {
+    return this.userService.updateUser(userId, dto)
+  }
 }

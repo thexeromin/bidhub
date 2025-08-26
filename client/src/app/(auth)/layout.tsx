@@ -4,19 +4,19 @@ import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 
 const AuthLayout = async ({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode
+  children: React.ReactNode
 }>) => {
-    const session = await getServerSession(authOptions)
-    if (session) redirect('/dashboard')
+  const session = await getServerSession(authOptions)
+  if (session) redirect('/dashboard')
 
-    return (
-        <>
-            <Header />
-            {children}
-        </>
-    )
+  return (
+    <>
+      <Header />
+      {children}
+    </>
+  )
 }
 
 export default AuthLayout

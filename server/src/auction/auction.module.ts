@@ -3,7 +3,7 @@ import { AuctionService } from './auction.service'
 import { AuctionController } from './auction.controller'
 
 @Module({
-    controllers: [AuctionController],
-    providers: [AuctionService],
+  controllers: [AuctionController],
+  providers: [AuctionService],
 })
 export class AuctionModule {}

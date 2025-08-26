@@ -8,24 +8,24 @@ import { ProductModule } from './product/product.module'
 import { UserModule } from './user/user.module'
 import { AuctionModule } from './auction/auction.module'
 import { TasksModule } from './tasks/tasks.module'
-import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module'
 
 @Module({
-    imports: [
-        ConfigModule.forRoot({ isGlobal: true }),
-        PrismaModule,
-        AuthModule,
-        ProductModule,
-        UserModule,
-        AuctionModule,
-        TasksModule,
-        CloudinaryModule,
-    ],
-    providers: [
-        {
-            provide: APP_GUARD,
-            useClass: AtGuard,
-        },
-    ],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    PrismaModule,
+    AuthModule,
+    ProductModule,
+    UserModule,
+    AuctionModule,
+    TasksModule,
+    CloudinaryModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AtGuard,
+    },
+  ],
 })
 export class AppModule {}

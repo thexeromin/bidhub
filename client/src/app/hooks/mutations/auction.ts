@@ -6,49 +6,49 @@ import { addProduct, createAuction, bidProduct } from '@/api'
 import { toast } from 'sonner'
 
 export const createAuctionCallBack = (successMsg: string) => {
-    return useMutation({
-        mutationFn: createAuction,
-        onError: (error: any) => {
-            toast(`Oops ${error?.statusCode || ''}!`, {
-                description: error?.message || 'Something went wrong.',
-            })
-        },
-        onSuccess: () => {
-            toast('Hurray!', {
-                description: successMsg,
-            })
-        },
-    })
+  return useMutation({
+    mutationFn: createAuction,
+    onError: (error: any) => {
+      toast(`Oops ${error?.statusCode || ''}!`, {
+        description: error?.message || 'Something went wrong.',
+      })
+    },
+    onSuccess: () => {
+      toast('Hurray!', {
+        description: successMsg,
+      })
+    },
+  })
 }
 
 export const addProductCallBack = (successMsg: string) => {
-    return useMutation({
-        mutationFn: addProduct,
-        onError: (error: any) => {
-            toast(`Oops ${error?.statusCode || ''}!`, {
-                description: error?.message || 'Something went wrong.',
-            })
-        },
-        onSuccess: () => {
-            toast('Hurray!', {
-                description: successMsg,
-            })
-        },
-    })
+  return useMutation({
+    mutationFn: addProduct,
+    onError: (error: any) => {
+      toast(`Oops ${error?.statusCode || ''}!`, {
+        description: error?.message || 'Something went wrong.',
+      })
+    },
+    onSuccess: () => {
+      toast('Hurray!', {
+        description: successMsg,
+      })
+    },
+  })
 }
 
 export const bidCallBack = (successMsg: string) => {
-    return useMutation({
-        mutationFn: bidProduct,
-        onError: (error: any) => {
-            toast(`Oops ${error?.statusCode || ''}!`, {
-                description: error?.message || 'Something went wrong.',
-            })
-        },
-        onSuccess: () => {
-            toast('Congrats!', {
-                description: successMsg,
-            })
-        },
-    })
+  return useMutation({
+    mutationFn: bidProduct,
+    onError: (error: any) => {
+      toast(`Oops ${error?.statusCode || ''}!`, {
+        description: error?.message || 'Something went wrong.',
+      })
+    },
+    onSuccess: () => {
+      toast('Congrats!', {
+        description: successMsg,
+      })
+    },
+  })
 }
