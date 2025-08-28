@@ -2,7 +2,6 @@
 
 'use client'
 
-import Image from 'next/image'
 import { useQuery } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { getProductsForAuction } from '@/api'
@@ -45,7 +44,7 @@ export default function ViewAllProducts({ id }: Props) {
               key={product.id}
               className="bg-white rounded-lg shadow overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
             >
-              <Image
+              <img
                 src={product.photo || ''}
                 alt={product.name}
                 className="w-full h-48 object-cover"

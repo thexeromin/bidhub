@@ -2,7 +2,6 @@
 
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
@@ -26,7 +25,7 @@ export default function ViewAllAuction() {
             key={auction.id}
           >
             {auction.photo ? (
-              <Image
+              <img
                 src={auction.photo}
                 className="w-full h-40 bg-gray-200 object-cover"
                 alt={auction.title}

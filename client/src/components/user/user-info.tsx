@@ -1,7 +1,6 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
-import Image from 'next/image'
 
 export default function UserInfo() {
   const { data } = useSession()
@@ -17,7 +16,7 @@ export default function UserInfo() {
 
   return (
     <section className="bg-white rounded-lg shadow p-6 flex items-center gap-6">
-      <Image
+      <img
         src={user.avatar + data!.user.id[0]}
         alt="User Avatar"
         className="w-24 h-24 rounded-full border border-gray-300"

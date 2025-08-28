@@ -3,7 +3,6 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { useQuery } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { getSpecificAuction } from '@/api'
@@ -33,7 +32,7 @@ export default function ViewSpecificAuction({ id }: Props) {
         <div className="space-y-8">
           {/* Auction Header */}
           <div className="flex flex-col md:flex-row items-center gap-6 bg-white p-6 rounded-lg shadow">
-            <Image
+            <img
               src={data.photo || ''}
               alt={data.title}
               className="w-full md:w-1/3 rounded-lg object-cover"
