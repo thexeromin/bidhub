@@ -11,7 +11,7 @@ export default function Testimonials() {
             'Live bidding is super fun!',
           ].map((text, i) => (
             <div key={i} className="bg-white p-6 rounded-lg shadow">
-              <p className="text-gray-700 italic mb-4">"{text}"</p>
+              <p className="text-gray-700 italic mb-4">&#34;{text}&#34;</p>
               <div className="text-sm font-semibold text-indigo-600">
                 User #{i + 101}
               </div>

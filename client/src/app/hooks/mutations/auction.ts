@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query'
 import { addProduct, createAuction, bidProduct } from '@/api'
 import { toast } from 'sonner'
 
-export const createAuctionCallBack = (successMsg: string) => {
+export const useCreateAuction = (successMsg: string) => {
   return useMutation({
     mutationFn: createAuction,
     onError: (error: any) => {
@@ -21,7 +21,7 @@ export const createAuctionCallBack = (successMsg: string) => {
   })
 }
 
-export const addProductCallBack = (successMsg: string) => {
+export const useAddProduct = (successMsg: string) => {
   return useMutation({
     mutationFn: addProduct,
     onError: (error: any) => {
@@ -37,7 +37,7 @@ export const addProductCallBack = (successMsg: string) => {
   })
 }
 
-export const bidCallBack = (successMsg: string) => {
+export const useBidOnProduct = (successMsg: string) => {
   return useMutation({
     mutationFn: bidProduct,
     onError: (error: any) => {

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { apiEndPoint } from '../constants/endpoint'
 import { Api } from '../network'
 

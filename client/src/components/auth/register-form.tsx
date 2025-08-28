@@ -18,7 +18,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { signupUser } from '@/app/hooks/mutations'
+import { useSignupUser } from '@/app/hooks/mutations'
 
 const FormSchema = z.object({
   email: z.email({ message: 'Invalid email address' }),
@@ -35,7 +35,7 @@ const RegisterForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
   ...props
 }) => {
   const router = useRouter()
-  const signupMutation = signupUser(() =>
+  const signupMutation = useSignupUser(() =>
     setTimeout(() => {
       router.push('/login')
     }, 2000),

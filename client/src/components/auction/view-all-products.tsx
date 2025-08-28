@@ -2,13 +2,14 @@
 
 'use client'
 
+import Image from 'next/image'
 import { useQuery } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { getProductsForAuction } from '@/api'
 import { AlertCircleIcon } from 'lucide-react'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '../ui/button'
-import { bidCallBack } from '@/app/hooks/mutations'
+import { useBidOnProduct } from '@/app/hooks/mutations'
 
 interface Props {
   id: string
@@ -16,12 +17,12 @@ interface Props {
 
 export default function ViewAllProducts({ id }: Props) {
   const { data: sessionData } = useSession()
-  const { data, error, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['products', sessionData?.user.accessToken],
     queryFn: () => getProductsForAuction(id, sessionData!.user.accessToken),
     enabled: !!sessionData?.user.accessToken,
   })
-  const mutation = bidCallBack('Bidded')
+  const mutation = useBidOnProduct('Bidded')
 
   return (
     <>
@@ -44,7 +45,7 @@ export default function ViewAllProducts({ id }: Props) {
               key={product.id}
               className="bg-white rounded-lg shadow overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
             >
-              <img
+              <Image
                 src={product.photo || ''}
                 alt={product.name}
                 className="w-full h-48 object-cover"

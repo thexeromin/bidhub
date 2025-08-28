@@ -16,7 +16,7 @@ import {
 
 export default function ViewBids() {
   const { data: sessionData } = useSession()
-  const { data, error, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['data', sessionData?.user.accessToken],
     queryFn: () => getBidHistory(sessionData!.user.accessToken),
     enabled: !!sessionData?.user.accessToken,
@@ -38,7 +38,7 @@ export default function ViewBids() {
         </TableHeader>
         <TableBody>
           {Array.isArray(data) &&
-            data.map((bid, index) => (
+            data.map((bid) => (
               <TableRow key={bid.id}>
                 <TableCell className="font-medium">{bid.amount}</TableCell>
                 <TableCell>{bid.productId}</TableCell>

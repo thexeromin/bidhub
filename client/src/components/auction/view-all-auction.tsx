@@ -2,6 +2,7 @@
 
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
@@ -9,7 +10,7 @@ import { getLiveAuctions } from '@/api'
 
 export default function ViewAllAuction() {
   const { data: sessionData } = useSession()
-  const { data, error, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['data', sessionData?.user.accessToken],
     queryFn: () => getLiveAuctions(sessionData!.user.accessToken),
     enabled: !!sessionData?.user.accessToken,
@@ -19,15 +20,16 @@ export default function ViewAllAuction() {
     <>
       {isLoading && <p>Loading...</p>}
       {Array.isArray(data) &&
-        data.map((auction, index) => (
+        data.map((auction) => (
           <div
             className="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition"
             key={auction.id}
           >
             {auction.photo ? (
-              <img
+              <Image
                 src={auction.photo}
                 className="w-full h-40 bg-gray-200 object-cover"
+                alt={auction.title}
               />
             ) : (
               <div className="h-40 bg-gray-200" />

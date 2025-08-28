@@ -25,7 +25,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { createAuctionCallBack } from '@/app/hooks/mutations'
+import { useCreateAuction } from '@/app/hooks/mutations'
 import { Textarea } from '../ui/textarea'
 
 const FormSchema = z.object({
@@ -34,12 +34,11 @@ const FormSchema = z.object({
 })
 
 const CreateAuctionForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
-  className,
   ...props
 }) => {
   const { data: sessionData } = useSession()
   const [file, setFile] = useState<File | null>(null)
-  const mutation = createAuctionCallBack('Auction created')
+  const mutation = useCreateAuction('Auction created')
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {

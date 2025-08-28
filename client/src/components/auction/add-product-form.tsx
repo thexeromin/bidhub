@@ -25,7 +25,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { addProductCallBack } from '@/app/hooks/mutations'
+import { useAddProduct } from '@/app/hooks/mutations'
 import { Textarea } from '../ui/textarea'
 
 const FormSchema = z.object({
@@ -42,7 +42,7 @@ interface Props {
 export default function AddProductForm({ id }: Props) {
   const { data: sessionData } = useSession()
   const [file, setFile] = useState<File | null>(null)
-  const mutation = addProductCallBack('Your product listed...')
+  const mutation = useAddProduct('Your product listed...')
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {

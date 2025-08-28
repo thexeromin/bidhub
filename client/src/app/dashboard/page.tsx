@@ -2,15 +2,6 @@ import Main from '@/components/template/main'
 import UserInfo from '@/components/user/user-info'
 
 export default function Page() {
-  const user = {
-    name: 'John Doe',
-    email: 'john@example.com',
-    avatar: 'https://i.pravatar.cc/100',
-    memberSince: 'Jan 2023',
-    totalBids: 34,
-    wonItems: 5,
-  }
-
   const auctionStats = [
     { title: 'Active Auctions', value: '42', change: '+5' },
     { title: 'Total Bids', value: '1,024', change: '+12' },

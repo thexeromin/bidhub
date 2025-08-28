@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query'
 import { signup } from '@/api/user'
 import { toast } from 'sonner'
 
-export const signupUser = (onSuccessAction: () => void) => {
+export const useSignupUser = (onSuccessAction: () => void) => {
   return useMutation({
     mutationFn: signup,
     onError: (error: any) => {
