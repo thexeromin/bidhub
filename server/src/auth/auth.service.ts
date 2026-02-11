@@ -1,6 +1,6 @@
 import { ForbiddenException, Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import * as bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import { JwtService } from '@nestjs/jwt'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 import { PrismaService } from 'src/prisma/prisma.service'
