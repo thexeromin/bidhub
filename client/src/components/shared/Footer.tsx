@@ -1,12 +1,26 @@
+'use client'
+
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 import { Separator } from '@/components/ui/separator'
 
 export function Footer() {
+  const pathname = usePathname()
+
+  // 1. Define routes where the Footer should contain NOTHING
+  // This hides it on /dashboard, /seller, etc.
+  const hideOnRoutes = ['/dashboard']
+
+  // Check if current path starts with any of the hidden routes
+  const shouldHide = hideOnRoutes.some((route) => pathname.startsWith(route))
+
+  if (shouldHide) return null
   return (
     <footer className="bg-muted/40 py-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
-            <h3 className="font-bold text-lg">BidMaster</h3>
+            <h3 className="font-bold text-lg">BidHub</h3>
             <p className="text-sm text-muted-foreground">
               The premium destination for real-time auctions. Bid, win, and sell
               with confidence.
@@ -37,7 +51,7 @@ export function Footer() {
         </div>
         <Separator className="my-8" />
         <div className="text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} BidMaster Inc. All rights reserved.
+          © {new Date().getFullYear()} BidHub Inc. All rights reserved.
         </div>
       </div>
     </footer>

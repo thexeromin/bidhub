@@ -1,9 +1,13 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { toast } from 'sonner'
 import { Loader2, Mail, Lock, Gavel } from 'lucide-react'
+import { AxiosError } from 'axios'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -24,8 +28,15 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { signinSchema, type SigninInput } from '@/lib/validations/auth'
+import { authService } from '@/services/auth'
+import { useAuthStore } from '@/store/useAuthStore'
 
 export default function SigninPage() {
+  const router = useRouter()
+  // Zustand Action to save user state
+  const setAuth = useAuthStore((state) => state.setAuth)
+  const [isLoading, setIsLoading] = useState(false)
+
   const form = useForm<SigninInput>({
     resolver: zodResolver(signinSchema),
     defaultValues: {
@@ -35,9 +46,37 @@ export default function SigninPage() {
   })
 
   async function onSubmit(data: SigninInput) {
-    // TODO: Connect to {/auth/local/signin, POST}
-    console.log('Login Data:', data)
-    await new Promise((resolve) => setTimeout(resolve, 2000)) // Mock delay
+    setIsLoading(true)
+    try {
+      // 1. Call API
+      const response = await authService.login(data)
+
+      // 2. Update Global Store (User & Tokens)
+      // The response structure is { token: {...}, ...userProps }
+      // We need to separate them to match our store signature: setAuth(user, tokens)
+      const { token, ...user } = response
+
+      setAuth(user, token)
+
+      // 3. Success Feedback
+      toast.success('Welcome back!')
+
+      // 4. Redirect to Home/Dashboard
+      router.push('/')
+    } catch (error) {
+      console.error('Login error:', error)
+      let errorMessage = 'Invalid email or password'
+
+      if (error instanceof AxiosError) {
+        errorMessage = error.response?.data?.message || errorMessage
+      } else if (error instanceof Error) {
+        errorMessage = error.message
+      }
+
+      toast.error(errorMessage)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -84,7 +123,15 @@ export default function SigninPage() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <div className="flex items-center justify-between">
+                    <FormLabel>Password</FormLabel>
+                    <Link
+                      href="/auth/forgot-password"
+                      className="text-xs text-primary hover:underline"
+                    >
+                      Forgot password?
+                    </Link>
+                  </div>
                   <FormControl>
                     <div className="relative">
                       <Lock className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -101,12 +148,8 @@ export default function SigninPage() {
               )}
             />
 
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={form.formState.isSubmitting}
-            >
-              {form.formState.isSubmitting ? (
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Signing in...
@@ -122,7 +165,7 @@ export default function SigninPage() {
         <div className="text-sm text-muted-foreground w-full text-center">
           Don&apos;t have an account?{' '}
           <Link
-            href="/signup"
+            href="/auth/local/signup"
             className="text-primary hover:underline font-medium"
           >
             Sign up
