@@ -54,13 +54,13 @@ export function Navbar() {
         <div className="flex items-center gap-4">
           <ModeToggle />
 
-          <Link href="/auth/local/signin">
+          <Link href="/signin">
             <Button variant="ghost" size="sm">
               Log in
             </Button>
           </Link>
 
-          <Link href="/auth/local/signup">
+          <Link href="/signup">
             <Button size="sm">Sign up</Button>
           </Link>
         </div>
