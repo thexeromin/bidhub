@@ -1,18 +1,14 @@
 'use client'
 
+import Link from 'next/link'
 import { useAuthStore } from '@/store/useAuthStore'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ProfileForm } from '@/components/dashboard/ProfileForm'
 import { ActiveBids } from '@/components/dashboard/ActiveBids'
 import { WonAuctions } from '@/components/dashboard/WonAuctions'
-import { Trophy, Gavel, UserCog } from 'lucide-react'
+import { Trophy, Gavel, UserCog, Plus } from 'lucide-react' // 3. Import Plus Icon
 
 export default function DashboardPage() {
   const { user } = useAuthStore()
@@ -28,10 +24,20 @@ export default function DashboardPage() {
             your activity.
           </p>
         </div>
+
+        {/* 👇 ADDED: Create Auction Button */}
+        <div className="flex items-center gap-2">
+          <Link href="/auction/create">
+            <Button className="gap-2">
+              <Plus className="h-4 w-4" /> Create Auction
+            </Button>
+          </Link>
+        </div>
       </div>
 
       {/* Stats Overview */}
       <div className="grid gap-4 md:grid-cols-3">
+        {/* ... (Keep your existing Cards code here) ... */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Bids</CardTitle>
@@ -79,6 +85,7 @@ export default function DashboardPage() {
 
       {/* Main Content Tabs */}
       <Tabs defaultValue="active-bids" className="space-y-4">
+        {/* ... (Keep your Tabs code here) ... */}
         <TabsList>
           <TabsTrigger value="active-bids" className="gap-2">
             <Gavel className="h-4 w-4" /> Active Bids

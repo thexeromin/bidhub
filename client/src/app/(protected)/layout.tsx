@@ -17,7 +17,7 @@ export default function ProtectedLayout({
   useEffect(() => {
     // 2. If finished loading and NOT authenticated, kick them out
     if (!isLoading && !isAuthenticated) {
-      router.replace('/auth/local/signin')
+      router.replace('/signin')
     }
   }, [isLoading, isAuthenticated, router])
 
