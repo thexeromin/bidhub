@@ -43,9 +43,15 @@ export class AuctionService {
   }
 
   async findAll() {
-    return await this.prismaService.auction.findMany().catch((error) => {
-      throw error
-    })
+    return await this.prismaService.auction
+      .findMany({
+        orderBy: {
+          startDate: 'desc',
+        },
+      })
+      .catch((error) => {
+        throw error
+      })
   }
 
   async findOne(id: string) {

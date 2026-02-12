@@ -56,7 +56,7 @@ export function Navbar() {
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
             <Link
-              href="/auctions"
+              href="/auction/all"
               className="transition-colors hover:text-primary"
             >
               Auctions

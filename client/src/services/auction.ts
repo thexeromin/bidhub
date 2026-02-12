@@ -1,5 +1,6 @@
 import { apiClient } from '@/lib/api-client'
 import { AuctionInput } from '@/lib/validations/auction'
+import { Auction } from '@/types/auction'
 
 export const auctionService = {
   /**
@@ -23,6 +24,9 @@ export const auctionService = {
     return response.data
   },
 
-  // async getAll() { ... }
+  async getAll() {
+    const response = await apiClient.get<Auction[]>('/auction')
+    return response.data
+  },
   // async getById(id: string) { ... }
 }
