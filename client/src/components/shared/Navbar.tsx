@@ -7,7 +7,6 @@ import {
   Search,
   Menu,
   LogOut,
-  User as UserIcon,
   Settings,
   LayoutDashboard,
 } from 'lucide-react'
@@ -44,7 +43,7 @@ export function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <div className="flex items-center gap-8">
@@ -61,16 +60,7 @@ export function Navbar() {
             >
               Auctions
             </Link>
-            <Link
-              href="/auction/create"
-              className="transition-colors hover:text-primary"
-            >
-              Sell
-            </Link>
-            <Link
-              href="/about"
-              className="transition-colors hover:text-primary"
-            >
+            <Link href="#" className="transition-colors hover:text-primary">
               About
             </Link>
           </nav>
@@ -83,7 +73,7 @@ export function Navbar() {
             <Input
               type="search"
               placeholder="Search for items..."
-              className="w-full bg-background pl-8 md:w-[300px] lg:w-[300px]"
+              className="w-full bg-background pl-8 md:w-75 lg:w-75"
             />
           </div>
         </div>

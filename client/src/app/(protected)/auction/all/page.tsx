@@ -142,7 +142,7 @@ export default function AuctionsListPage() {
                 </div>
               </CardHeader>
 
-              <CardContent className="p-4 pt-2 flex-grow">
+              <CardContent className="p-4 pt-2 grow">
                 <p className="text-sm text-muted-foreground line-clamp-3">
                   {auction.description ||
                     'No description provided for this event.'}
@@ -155,7 +155,7 @@ export default function AuctionsListPage() {
                   className="w-full"
                   disabled={auction.status === 'Ended'}
                 >
-                  <Link href={`/auctions/${auction.id}`}>
+                  <Link href={`/auction/${auction.id}`}>
                     {auction.status === 'Ended' ? (
                       'Auction Ended'
                     ) : (
