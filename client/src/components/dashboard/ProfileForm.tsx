@@ -49,7 +49,7 @@ export function ProfileForm({ user }: { user: User | null }) {
       firstName: user?.firstName || '',
       lastName: user?.lastName || '',
       phone: user?.phone || '',
-      address: user?.address || '', // Ensure 'address' exists in your User type or remove this
+      address: '', // Ensure 'address' exists in your User type or remove this
     },
   })
 

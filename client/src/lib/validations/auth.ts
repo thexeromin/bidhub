@@ -1,4 +1,4 @@
-import * as z from 'zod'
+import z from 'zod'
 
 export const signupSchema = z.object({
   firstName: z.string().min(2, 'First name must be at least 2 characters'),
@@ -16,3 +16,4 @@ export const signinSchema = z.object({
 
 export type SignupInput = z.infer<typeof signupSchema>
 export type SigninInput = z.infer<typeof signinSchema>
+export type SigninOutput = z.output<typeof signinSchema>
